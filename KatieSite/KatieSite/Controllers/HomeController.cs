@@ -33,7 +33,12 @@ namespace KatieSite.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Overview()
+        {
+            return View();
+        }
+
+        public IActionResult Forum()
         {
             return View();
         }

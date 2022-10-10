@@ -2,14 +2,19 @@
 
 namespace KatieSite
 {
-    public class BookController : Controller
+    public class ReferencesController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Review()
+        public IActionResult Books()
+        {
+            return View();
+        }
+
+        public IActionResult Links()
         {
             return View();
         }
