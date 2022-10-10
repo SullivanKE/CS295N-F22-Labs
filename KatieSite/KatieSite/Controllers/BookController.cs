@@ -9,7 +9,7 @@ namespace KatieSite
             return View();
         }
 
-        public IActionResult Reviews()
+        public IActionResult Review()
         {
             return View();
         }
