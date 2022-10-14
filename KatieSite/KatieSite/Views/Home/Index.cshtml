@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ForumPost
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -17,4 +18,17 @@
             <li><a href="/home/contact">Contact Us</a></li>
         </ul>
     </p>
+
+    
+    @if(@Model.body != null)
+    {
+        <p>
+            <h2>Last forum post</h2>
+            User: @Model.user<br />
+            Date: @Model.date.ToShortDateString() <br />
+            Head: @Model.head<br />
+            Body: @Model.body<br />  
+        </p>
+    }
+    
 </div>

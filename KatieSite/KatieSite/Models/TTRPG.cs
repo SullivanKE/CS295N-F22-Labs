@@ -1,7 +1,7 @@
 ﻿using System;
 namespace KatieSite.Models
 {
-    public class TTRPGModel
+    public class TTRPG
     {
         public string name { get; set; }
         public string publisher { get; set; }
@@ -12,7 +12,7 @@ namespace KatieSite.Models
         public int stars { get; set; }
         public string rating { get; set; }
         public string description { get; set; }
-        public string review { get; set; }
+        public Review review { get; set; }
 
     }
 }
