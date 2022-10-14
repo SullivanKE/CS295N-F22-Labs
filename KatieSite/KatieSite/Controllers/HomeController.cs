@@ -18,21 +18,12 @@ namespace KatieSite.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index(string user, string head, string body, DateTime date)
+        public IActionResult Index(ForumPost post)
         {
-            ForumPost post = new ForumPost();
-            post.user = user;
-            post.head = head;
-            post.body = body;
             post.date = DateTime.Now;
 
             return View(post);
         }
-
-        /*public IActionResult Index()
-        {
-            return View();
-        }*/
 
         public IActionResult Privacy()
         {
@@ -57,14 +48,8 @@ namespace KatieSite.Controllers
         [HttpPost]
         public IActionResult Forum(ForumPost post)
         {
-            return RedirectToAction("Index", 
-                new
-                {
-                    user = post.user,
-                    date = DateTime.Now,
-                    head = post.head,
-                    body = post.body
-                }); 
+            post.date = DateTime.Now;
+            return RedirectToAction("Index", post);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
