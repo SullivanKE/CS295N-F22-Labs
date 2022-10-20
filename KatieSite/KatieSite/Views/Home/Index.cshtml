@@ -12,8 +12,6 @@
             <li><a href="/home/overview">Overview</a></li>
             <li><a href="/home/forum">Forum</a></li>
             <li><a href="/references/">References</a></li>
-            <li><a href="/references/books">Books</a></li>
-            <li><a href="/references/links">Links</a></li>
             <li><a href="/tools/">TTRPG Tools</a></li>
             <li><a href="/home/contact">Contact Us</a></li>
         </ul>
@@ -27,6 +25,8 @@
             User: @Model.user<br />
             Date: @Model.date.ToShortDateString() <br />
             Head: @Model.head<br />
+            Rating: @Model.rating.rating<br />
+            URL: @Model.rating.url<br />
             Body: @Model.body<br />  
         </p>
     }

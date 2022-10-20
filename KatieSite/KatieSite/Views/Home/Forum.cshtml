@@ -1,9 +1,15 @@
 ﻿@model ForumPost
-<h1>TTRPG Forums Page</h1>
+<h1 class="display-4">TTRPG Forums Page</h1>
 
 <form method = "post">
 	<label asp-for = "user">Name</label>
 	<input asp-for = "user" /><br />
+
+	<label asp-for = "rating.rating">Rating</label>
+	<input asp-for = "rating.rating" /><br />
+
+	<label asp-for = "rating.url">URL</label>
+	<input asp-for = "rating.url" /><br />
 
 	<label asp-for = "head">Head</label>
 	<input asp-for = "head" /><br />

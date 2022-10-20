@@ -1,4 +1,5 @@
 ﻿using KatieSite.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,9 +19,22 @@ namespace KatieSite.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index(ForumPost post)
+        [AllowAnonymous]
+        public IActionResult Index(string user, string head, int rating, string url, string body, DateTime date)
         {
-            post.date = DateTime.Now;
+
+            // Rebuild the ForumPost model from the home/forum post controller
+            ForumPost post = new ForumPost();
+            post.user = user;
+            post.head = head;
+            post.body = body;
+            post.date = date;
+
+            Rating r = new Rating();
+            r.rating = rating;
+            r.url = url;
+
+            post.rating = r;
 
             return View(post);
         }
@@ -49,7 +63,20 @@ namespace KatieSite.Controllers
         public IActionResult Forum(ForumPost post)
         {
             post.date = DateTime.Now;
-            return RedirectToAction("Index", post);
+
+            // Break down the post model into individual parts to send to index.
+            return RedirectToAction("Index",
+                new
+                {
+                    user = post.user,
+                    head = post.head,
+                    rating = post.rating.rating,
+                    url = post.rating.url,
+                    body = post.body,
+                    date = post.date
+                }
+            );
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

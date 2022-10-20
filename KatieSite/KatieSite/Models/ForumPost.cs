@@ -7,6 +7,7 @@ namespace KatieSite.Models
         public DateTime date { get; set; }
         public string head { get; set; }
         public string body { get; set; }
+        public Rating rating { get; set; }
 
     }
 }
