@@ -1,0 +1,49 @@
+﻿@model ForumPost
+<h1 class="display-4">TTRPG Forums Page</h1>
+<main class="container">
+
+	<div class="jumbotron">
+		<h2 class="display-3">Leave a post!</h2>
+	</div>
+
+	<form method = "post">
+		<span class="m-1">
+			<div class="row">
+				<label asp-for = "user" class="col-sm-2">Name</label>
+				<input asp-for = "user" class="col-sm-4" /><br />
+			</div>
+		</span>
+			
+		<span class="m-1">
+			<div class="row">
+				<label asp-for = "rating.rating" class="col-sm-2">Rating</label>
+				<input asp-for = "rating.rating" class="col-sm-4" /><br />
+			</div>
+
+			<div class="row">
+				<label asp-for = "rating.url" class="col-sm-2">URL</label>
+				<input asp-for = "rating.url" class="col-sm-4" /><br />
+			</div>
+		</span>
+
+		<span class="m-1">
+			<div class="row">
+				<label asp-for = "head" class="col-sm-2">Head</label>
+				<input asp-for = "head" class="col-sm-4" /><br />
+			</div>
+		</span>
+
+		<span class="m-1">
+			<div class="row">
+				<label asp-for = "body" class="col-sm-2">Body</label>
+				<textarea asp-for = "body" class="col-sm-4"></textarea><br />
+			</div>
+		</span>
+
+		<span class="p-1">
+			<button type = "submit" class ="btn btn-primary">Submit</button>
+		<span class="m-1">
+
+	</form>
+	
+</main>
