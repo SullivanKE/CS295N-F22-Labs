@@ -14,10 +14,11 @@ namespace KatieSite.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+/*        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-        }
+        }*/
+
 
         [AllowAnonymous]
         public IActionResult Index(string user, string head, int rating, string url, string body, DateTime date)
