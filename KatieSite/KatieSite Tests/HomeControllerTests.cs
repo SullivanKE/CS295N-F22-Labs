@@ -16,9 +16,9 @@ namespace KatieSite_Tests
             HomeController controller = new HomeController();
 
             QuizVM q1 = new QuizVM();
-            q1.UserAnswer1 = "chain mail";
-            q1.UserAnswer2 = "pathfinder";
-            q1.UserAnswer3 = "six";
+            q1.UserAnswer1 = "CHAIN MAIL";
+            q1.UserAnswer2 = "PATHFINDER";
+            q1.UserAnswer3 = "SIX";
 
 
 
@@ -84,7 +84,7 @@ namespace KatieSite_Tests
         {
             // arrange
             const string RIGHT = "Correct";
-            const string WRONG = "Incorrect";
+            const string WRONG = "Incorrect: The correct answer is ";
             const string NAQ = "Not a question!";
 
             QuizVM q1 = new QuizVM();
@@ -93,9 +93,9 @@ namespace KatieSite_Tests
             q1.UserAnswer3 = "Wrong Answer 3";
 
             QuizVM q2 = new QuizVM();
-            q2.UserAnswer1 = "Right Answer 1";
-            q2.UserAnswer2 = "Right Answer 2";
-            q2.UserAnswer3 = "Right Answer 3";
+            q2.UserAnswer1 = "CHAIN MAIL";
+            q2.UserAnswer2 = "PATHFINDER";
+            q2.UserAnswer3 = "SIX";
 
             QuizVM q3 = new QuizVM();
             q3.UserAnswer1 = "Not an Answer 1";
@@ -117,9 +117,9 @@ namespace KatieSite_Tests
 
 
             // assert
-            Assert.Equal(WRONG, q1.RightOrWrong1);
-            Assert.Equal(WRONG, q1.RightOrWrong2);
-            Assert.Equal(WRONG, q1.RightOrWrong3);
+            Assert.Equal(WRONG + q2.UserAnswer1, q1.RightOrWrong1);
+            Assert.Equal(WRONG + q2.UserAnswer2, q1.RightOrWrong2);
+            Assert.Equal(WRONG + q2.UserAnswer3, q1.RightOrWrong3);
 
             Assert.Equal(RIGHT, q2.RightOrWrong1);
             Assert.Equal(RIGHT, q2.RightOrWrong2);
