@@ -1,4 +1,5 @@
 ﻿using KatieSite.Models;
+using KatieSite;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -68,7 +69,10 @@ namespace KatieSite.Controllers
         [HttpPost]
         public IActionResult Quiz(QuizVM model)
         {
-            return View();
+            model.RightOrWrong1 = QuizLogic.CheckAnswer(1, model.UserAnswer1);
+            model.RightOrWrong2 = QuizLogic.CheckAnswer(2, model.UserAnswer2);
+            model.RightOrWrong3 = QuizLogic.CheckAnswer(3, model.UserAnswer3);
+            return View(model);
         }
 
         [HttpPost]

@@ -10,6 +10,40 @@ namespace KatieSite_Tests
     public class HomeControllerTests
     {
         [Fact]
+        public void QuizTest()
+        {
+            // arrange
+            HomeController controller = new HomeController();
+
+            QuizVM q1 = new QuizVM();
+            q1.UserAnswer1 = "chain mail";
+            q1.UserAnswer2 = "pathfinder";
+            q1.UserAnswer3 = "six";
+
+
+
+            // act
+            ViewResult viewResult = (ViewResult)controller.Quiz(q1);
+
+            QuizVM q2 = (QuizVM)viewResult.Model;
+
+            q1.RightOrWrong1 = QuizLogic.CheckAnswer(1, q1.UserAnswer1);
+            q1.RightOrWrong1 = QuizLogic.CheckAnswer(2, q1.UserAnswer2);
+            q1.RightOrWrong1 = QuizLogic.CheckAnswer(3, q1.UserAnswer3);
+
+
+            // assert
+            Assert.NotNull(viewResult);
+            Assert.Equal(q1.UserAnswer1, q2.UserAnswer1);
+            Assert.Equal(q1.UserAnswer2, q2.UserAnswer2);
+            Assert.Equal(q1.UserAnswer3, q2.UserAnswer3);
+            Assert.Equal(q1.RightOrWrong1, q2.RightOrWrong1);
+            Assert.Equal(q1.RightOrWrong2, q2.RightOrWrong2);
+            Assert.Equal(q1.RightOrWrong3, q2.RightOrWrong3);
+
+        }
+
+        [Fact]
         public void IndexTest()
         {
             // arrange
@@ -54,33 +88,32 @@ namespace KatieSite_Tests
             const string NAQ = "Not a question!";
 
             QuizVM q1 = new QuizVM();
-            q1.UserAnswer1 = "Wrong Answer";
+            q1.UserAnswer1 = "Wrong Answer 1";
             q1.UserAnswer2 = "Wrong Answer 2";
             q1.UserAnswer3 = "Wrong Answer 3";
 
             QuizVM q2 = new QuizVM();
-            q2.UserAnswer1 = "Right Answer";
+            q2.UserAnswer1 = "Right Answer 1";
             q2.UserAnswer2 = "Right Answer 2";
             q2.UserAnswer3 = "Right Answer 3";
 
             QuizVM q3 = new QuizVM();
-            q3.UserAnswer1 = "Not an Answer";
+            q3.UserAnswer1 = "Not an Answer 1";
             q3.UserAnswer2 = "Not an Answer 2";
             q3.UserAnswer3 = "Not an Answer 3";
 
             // act
+            q1.RightOrWrong1 = QuizLogic.CheckAnswer(1, q1.UserAnswer1);
+            q1.RightOrWrong2 = QuizLogic.CheckAnswer(2, q1.UserAnswer2);
+            q1.RightOrWrong3 = QuizLogic.CheckAnswer(3, q1.UserAnswer3);
 
-            q1.RightOrWrong1 = Quiz.CheckAnswer(1, q1.UserAnswer1);
-            q1.RightOrWrong2 = Quiz.CheckAnswer(2, q1.UserAnswer2);
-            q1.RightOrWrong3 = Quiz.CheckAnswer(3, q1.UserAnswer3);
+            q2.RightOrWrong1 = QuizLogic.CheckAnswer(1, q2.UserAnswer1);
+            q2.RightOrWrong2 = QuizLogic.CheckAnswer(2, q2.UserAnswer2);
+            q2.RightOrWrong3 = QuizLogic.CheckAnswer(3, q2.UserAnswer3);
 
-            q2.RightOrWrong1 = Quiz.CheckAnswer(1, q2.UserAnswer1);
-            q2.RightOrWrong2 = Quiz.CheckAnswer(2, q2.UserAnswer2);
-            q2.RightOrWrong3 = Quiz.CheckAnswer(3, q2.UserAnswer3);
-
-            q3.RightOrWrong1 = Quiz.CheckAnswer(4, q3.UserAnswer1);
-            q3.RightOrWrong2 = Quiz.CheckAnswer(4, q3.UserAnswer2);
-            q3.RightOrWrong3 = Quiz.CheckAnswer(4, q3.UserAnswer3);
+            q3.RightOrWrong1 = QuizLogic.CheckAnswer(4, q3.UserAnswer1);
+            q3.RightOrWrong2 = QuizLogic.CheckAnswer(4, q3.UserAnswer2);
+            q3.RightOrWrong3 = QuizLogic.CheckAnswer(4, q3.UserAnswer3);
 
 
             // assert
@@ -88,13 +121,13 @@ namespace KatieSite_Tests
             Assert.Equal(WRONG, q1.RightOrWrong2);
             Assert.Equal(WRONG, q1.RightOrWrong3);
 
-            Assert.Equal(RIGHT, q1.RightOrWrong1);
-            Assert.Equal(RIGHT, q1.RightOrWrong2);
-            Assert.Equal(RIGHT, q1.RightOrWrong3);
+            Assert.Equal(RIGHT, q2.RightOrWrong1);
+            Assert.Equal(RIGHT, q2.RightOrWrong2);
+            Assert.Equal(RIGHT, q2.RightOrWrong3);
 
-            Assert.Equal(NAQ, q1.RightOrWrong1);
-            Assert.Equal(NAQ, q1.RightOrWrong2);
-            Assert.Equal(NAQ, q1.RightOrWrong3);
+            Assert.Equal(NAQ, q3.RightOrWrong1);
+            Assert.Equal(NAQ, q3.RightOrWrong2);
+            Assert.Equal(NAQ, q3.RightOrWrong3);
         }
     }
 }
