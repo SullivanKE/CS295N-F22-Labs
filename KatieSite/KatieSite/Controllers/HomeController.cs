@@ -60,6 +60,17 @@ namespace KatieSite.Controllers
             return View();
         }
 
+        public IActionResult Quiz()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Quiz(QuizVM model)
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Forum(ForumPost post)
         {
