@@ -52,29 +52,29 @@ namespace KatieSite_Tests
             ForumPost p = new ForumPost();
             Rating r = new Rating();
 
-            p.user = "user name";
-            p.head = "head title";
+            p.User = "user name";
+            p.Head = "head title";
             r.rating = 5;
             r.url = "url info";
-            p.rating = r;
-            p.body = "body text";
-            p.date = DateTime.Now;
+            p.Rating = r;
+            p.Body = "body text";
+            p.Date = DateTime.Now;
 
             // act
 
-            ViewResult viewResult = (ViewResult)controller.Index(p.user, p.head, r.rating, r.url, p.body, p.date);
+            ViewResult viewResult = (ViewResult)controller.Index(p.User, p.Head, r.rating, r.url, p.Body, p.Date);
 
             ForumPost p2 = (ForumPost)viewResult.Model;
 
 
             // assert
             Assert.NotNull(viewResult);
-            Assert.Equal(p.user, p2.user);
-            Assert.Equal(p.head, p2.head);
-            Assert.Equal(p.body, p2.body);
-            Assert.Equal(p.date, p2.date);
-            Assert.Equal(p.rating.rating, p2.rating.rating);
-            Assert.Equal(p.rating.url, p2.rating.url);
+            Assert.Equal(p.User, p2.User);
+            Assert.Equal(p.Head, p2.Head);
+            Assert.Equal(p.Body, p2.Body);
+            Assert.Equal(p.Date, p2.Date);
+            Assert.Equal(p.Rating.rating, p2.Rating.rating);
+            Assert.Equal(p.Rating.url, p2.Rating.url);
 
 
         }

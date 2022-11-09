@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace KatieSite.Models
@@ -7,11 +9,12 @@ namespace KatieSite.Models
     {
         [Key]
         public int PostId { get; set; }
-        public string user { get; set; }
-        public DateTime date { get; set; }
-        public string head { get; set; }
-        public string body { get; set; }
-        public Rating rating { get; set; }
+        public string User { get; set; }
+        public DateTime Date { get; set; }
+        public string Head { get; set; }
+        public string Body { get; set; }
+        public Rating Rating { get; set; }
 
+        // public virtual ICollection<ForumPost> Posts { get; set; }
     }
 }

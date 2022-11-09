@@ -29,21 +29,9 @@ namespace KatieSite.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Index(string reviewId)
+        public IActionResult Index()
         {
-
-            // Rebuild the ForumPost model from the home/forum post controller
-            ForumPost post = context.ForumPosts.OrderBy(post => post.date).LastOrDefault();
-
-
-            if (post != null)
-            {
-                Rating r = context.Rating.Find(post.PostId);
-                post.rating = r;
-                return View(post);
-            }
-            else
-                return View();
+            return View();
         }
 
         public IActionResult Privacy()
@@ -61,10 +49,7 @@ namespace KatieSite.Controllers
             return View();
         }
 
-        public IActionResult Forum()
-        {
-            return View();
-        }
+        
 
         public IActionResult Quiz()
         {
@@ -80,18 +65,7 @@ namespace KatieSite.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public IActionResult Forum(ForumPost post)
-        {
-            post.date = DateTime.Now;
-
-            context.ForumPosts.Add(post);
-            context.SaveChanges();
-            
-
-            return RedirectToAction("Index", new {reviewId = post.PostId});
-
-        }
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
