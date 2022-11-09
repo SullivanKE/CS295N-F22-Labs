@@ -8,18 +8,42 @@
 
 @if (@Model[0] != null)
 {
-    <p>
-        <h2>Last forum post</h2>
-        User: @Model[0].User<br />
-        Date: @Model[0].Date.ToShortDateString() <br />
-        Head: @Model[0].Head<br />
-        Rating: @Model[0].Rating.rating<br />
-        URL: @Model[0].Rating.url<br />
-        Body: @Model[0].Body<br />
-    </p>
+    <div class="container">
+        <div class="col-md-3">
+            <p class="h2">
+                @Model[0].Head<br />
+            </p>
+            <p class="h5">
+                by @Model[0].User<br />
+            </p>
+            @Model[0].Date.ToShortDateString()<br />
+        </div>
+        <hr>
+        <div class="col-md-3">
+            Rating: @Model[0].Rating.rating<br />
+            URL: <a href="@Model[0].Rating.url">@Model[0].Rating.url</a><br />
+        </div>
+        <hr>
+        <div class="col-md-10" style="background-color:#dddddd;">
+            <p class="m-3">
+                Body: @Model[0].Body<br />
+            </p>
+        </div>
+    </div>
+
+    <hr />
+    <hr />
+
+    <div class="p-4">
+        <p class="col-md-12">
+            <a href="forum/forum" class="h1">Make a post!</a>
+        </p>
+    </div>
+    
+
     <div class="container">
         <table>
-            <tr>
+            <tr style="background-color: #999999;">
                 <th class="col-md-6">Title</th>
                 <th class="col-md-4">User</th>
                 <th class="col-md-2">Date</th>
@@ -30,12 +54,12 @@
 
                 <tr>
                     <td>
-                        <a href="/forum/post?PostId=@j" class="h2">@Model[i].Head</a>
+                        <a href="/forum/post?PostId=@j" class="h4">@Model[i].Head</a>
                     </td>
-                    <td class="h3">
+                    <td class="h6">
                         @Model[i].User
                     </td>
-                    <td class="h3">
+                    <td class="h6">
                         @Model[i].Date
                     </td>
                 </tr>
