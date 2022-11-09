@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace KatieSite.Controllers
 {
@@ -32,10 +33,17 @@ namespace KatieSite.Controllers
         {
 
             // Rebuild the ForumPost model from the home/forum post controller
-            ForumPost post = context.ForumPosts.Find(reviewId);
-            
+            ForumPost post = context.ForumPosts.OrderBy(post => post.date).LastOrDefault();
 
-            return View(post);
+
+            if (post != null)
+            {
+                Rating r = context.Rating.Find(post.PostId);
+                post.rating = r;
+                return View(post);
+            }
+            else
+                return View();
         }
 
         public IActionResult Privacy()
@@ -76,19 +84,6 @@ namespace KatieSite.Controllers
         public IActionResult Forum(ForumPost post)
         {
             post.date = DateTime.Now;
-
-            // Break down the post model into individual parts to send to index.
-            /*return RedirectToAction("Index",
-                new
-                {
-                    user = post.user,
-                    head = post.head,
-                    rating = post.rating.rating,
-                    url = post.rating.url,
-                    body = post.body,
-                    date = post.date
-                }
-            );*/
 
             context.ForumPosts.Add(post);
             context.SaveChanges();

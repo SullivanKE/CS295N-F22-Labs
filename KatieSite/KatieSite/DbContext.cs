@@ -8,5 +8,6 @@ namespace KatieSite
         public DbContext(
            DbContextOptions<DbContext> options) : base(options) { }
         public DbSet<ForumPost> ForumPosts { get; set; }
+        public DbSet<Rating> Rating { get; set; }
     }
 }
