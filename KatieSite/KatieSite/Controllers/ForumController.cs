@@ -18,7 +18,7 @@ namespace KatieSite.Controllers
         public IActionResult Index()
         {
             // Rebuild the ForumPost model from the home/forum post controller
-            List<ForumPost> post = context.ForumPosts.OrderBy(post => post.Date).ToList();
+            List<ForumPost> post = context.ForumPosts.OrderByDescending(post => post.Date).ToList();
 
 
             foreach (ForumPost p in post)
