@@ -20,23 +20,20 @@ namespace KatieSite.Controllers
             _logger = logger;
         }*/
 
+        DbContext context;
+
+        public HomeController(DbContext c)
+        {
+            this.context = c;
+        }
 
         [AllowAnonymous]
-        public IActionResult Index(string user, string head, int rating, string url, string body, DateTime date)
+        public IActionResult Index(string reviewId)
         {
 
             // Rebuild the ForumPost model from the home/forum post controller
-            ForumPost post = new ForumPost();
-            post.user = user;
-            post.head = head;
-            post.body = body;
-            post.date = date;
-
-            Rating r = new Rating();
-            r.rating = rating;
-            r.url = url;
-
-            post.rating = r;
+            ForumPost post = context.ForumPosts.Find(reviewId);
+            
 
             return View(post);
         }
@@ -81,7 +78,7 @@ namespace KatieSite.Controllers
             post.date = DateTime.Now;
 
             // Break down the post model into individual parts to send to index.
-            return RedirectToAction("Index",
+            /*return RedirectToAction("Index",
                 new
                 {
                     user = post.user,
@@ -91,7 +88,13 @@ namespace KatieSite.Controllers
                     body = post.body,
                     date = post.date
                 }
-            );
+            );*/
+
+            context.ForumPosts.Add(post);
+            context.SaveChanges();
+            
+
+            return RedirectToAction("Index", new {reviewId = post.PostId});
 
         }
 
