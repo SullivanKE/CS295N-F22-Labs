@@ -1,0 +1,46 @@
+﻿@using KatieSite.Models
+@model QuizVM
+@{
+    ViewData["Title"] = "Quiz";
+}
+
+<h1>Quiz</h1>
+
+<main class="container">
+
+	<div class="jumbotron">
+		<h2 class="display-3">Take the Quiz!</h2>
+	</div>
+
+	<form method = "post">
+		<span class="m-1">
+			<div class="row">
+				<label asp-for = "UserAnswer1" class="col-6">What was the system that Dungeons and Dragons originally came from?</label>
+				<input asp-for = "UserAnswer1" class="col-4" /><br />
+			</div>
+			<p>@Model?.RightOrWrong1</p>
+		</span>
+			
+		<span class="m-1">
+			<div class="row">
+				<label asp-for = "UserAnswer2" class="col-6">What system was created from D&D3.5?</label>
+				<input asp-for = "UserAnswer2" class="col-4" /><br />
+			</div>
+			<p>@Model?.RightOrWrong2</p>
+		</span>
+
+		<span class="m-1">
+			<div class="row">
+				<label asp-for = "UserAnswer3" class="col-6">What is the most common sided die?</label>
+				<input asp-for = "UserAnswer3" class="col-4" /><br />
+			</div>
+			<p>@Model?.RightOrWrong3</p>
+		</span>
+
+		<span class="p-1">
+			<button type = "submit" class ="btn btn-primary">Submit</button>
+		</span>
+
+	</form>
+	
+</main>

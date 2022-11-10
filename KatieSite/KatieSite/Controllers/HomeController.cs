@@ -1,4 +1,5 @@
 ﻿using KatieSite.Models;
+using KatieSite;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -14,10 +15,11 @@ namespace KatieSite.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+/*        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-        }
+        }*/
+
 
         [AllowAnonymous]
         public IActionResult Index(string user, string head, int rating, string url, string body, DateTime date)
@@ -57,6 +59,20 @@ namespace KatieSite.Controllers
         public IActionResult Forum()
         {
             return View();
+        }
+
+        public IActionResult Quiz()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Quiz(QuizVM model)
+        {
+            model.RightOrWrong1 = QuizLogic.CheckAnswer(1, model.UserAnswer1);
+            model.RightOrWrong2 = QuizLogic.CheckAnswer(2, model.UserAnswer2);
+            model.RightOrWrong3 = QuizLogic.CheckAnswer(3, model.UserAnswer3);
+            return View(model);
         }
 
         [HttpPost]
