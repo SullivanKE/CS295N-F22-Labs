@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace KatieSite.Controllers
 {
@@ -20,25 +21,17 @@ namespace KatieSite.Controllers
             _logger = logger;
         }*/
 
+        DbContext context;
+
+        public HomeController(DbContext c)
+        {
+            this.context = c;
+        }
 
         [AllowAnonymous]
-        public IActionResult Index(string user, string head, int rating, string url, string body, DateTime date)
+        public IActionResult Index()
         {
-
-            // Rebuild the ForumPost model from the home/forum post controller
-            ForumPost post = new ForumPost();
-            post.user = user;
-            post.head = head;
-            post.body = body;
-            post.date = date;
-
-            Rating r = new Rating();
-            r.rating = rating;
-            r.url = url;
-
-            post.rating = r;
-
-            return View(post);
+            return View();
         }
 
         public IActionResult Privacy()
@@ -56,10 +49,7 @@ namespace KatieSite.Controllers
             return View();
         }
 
-        public IActionResult Forum()
-        {
-            return View();
-        }
+        
 
         public IActionResult Quiz()
         {
@@ -75,25 +65,7 @@ namespace KatieSite.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public IActionResult Forum(ForumPost post)
-        {
-            post.date = DateTime.Now;
-
-            // Break down the post model into individual parts to send to index.
-            return RedirectToAction("Index",
-                new
-                {
-                    user = post.user,
-                    head = post.head,
-                    rating = post.rating.rating,
-                    url = post.rating.url,
-                    body = post.body,
-                    date = post.date
-                }
-            );
-
-        }
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

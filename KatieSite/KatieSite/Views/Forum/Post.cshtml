@@ -1,0 +1,39 @@
+﻿@model ForumPost;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Forums</h1>
+
+
+@if (@Model != null)
+{
+    <div class="container">
+        <div class="col-md-3">
+                <p class="h2">
+                    @Model.Head<br />
+                </p>
+                <p class="h5">
+                    by @Model.User<br />
+                </p>
+                @Model.Date.ToShortDateString()<br />
+        </div>
+        <hr>
+        <div class="col-md-3">
+                Rating: @Model.Rating.rating<br />
+                URL: <a href="@Model.Rating.url">@Model.Rating.url</a><br />
+        </div>
+        <hr>
+        <div class="col-md-10" style="background-color:#dddddd;">
+            <p class="m-3">
+                @Model.Body<br />
+            </p>
+        </div>
+    </div>
+}
+else
+{
+    <p class="h1">
+        No post found!
+    </p>
+}
