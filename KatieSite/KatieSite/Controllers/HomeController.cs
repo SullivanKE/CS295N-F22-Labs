@@ -1,5 +1,4 @@
 ﻿using KatieSite.Models;
-using KatieSite;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -9,6 +8,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using KatieSite.Data;
+using DbContext = KatieSite.Data.DbContext;
 
 namespace KatieSite.Controllers
 {

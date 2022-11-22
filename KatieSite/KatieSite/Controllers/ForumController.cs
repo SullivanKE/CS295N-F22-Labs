@@ -1,4 +1,5 @@
-﻿using KatieSite.Models;
+﻿using KatieSite.Data;
+using KatieSite.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,24 +11,16 @@ namespace KatieSite.Controllers
     {
 
         DbContext context;
+        IForumRepository repo;
 
-        public ForumController(DbContext c)
+        public ForumController(DbContext c, IForumRepository repo)
         {
             this.context = c;
+            this.repo = repo;
         }
         public IActionResult Index()
         {
-            // Rebuild the ForumPost model from the home/forum post controller
-            List<ForumPost> post = context.ForumPosts.OrderByDescending(post => post.Date).ToList();
-
-
-            foreach (ForumPost p in post)
-            { 
-                Rating r = context.Rating.Find(p.PostId);
-                p.Rating = r;
-            }
-            
-            return View(post);
+            return View(repo.GetAllPosts());
         }
 
         public IActionResult Forum()
@@ -40,27 +33,22 @@ namespace KatieSite.Controllers
         {
             post.Date = DateTime.Now;
 
-            context.ForumPosts.Add(post);
-            context.SaveChanges();
+            repo.SavePost(post);
 
 
             return RedirectToAction("Index");
 
         }
 
-        public IActionResult Post(int PostId)
+        public IActionResult Post(int postId)
         {
-            ForumPost post = context.ForumPosts.Find(PostId);
-            Rating r = context.Rating.Find(PostId);
-            if (r != null)
-            {
-                post.Rating = r;
+            ForumPost post = repo.GetPostById(postId);
+
+            if (post != null)
                 return View(post);
-            }
-            else
-            {
-                return View();
-            }
+
+            return View();
+
         }
     }
 }
