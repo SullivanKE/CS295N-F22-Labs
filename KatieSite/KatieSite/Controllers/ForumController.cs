@@ -10,12 +10,11 @@ namespace KatieSite.Controllers
     public class ForumController : Controller
     {
 
-        DbContext context;
+
         IForumRepository repo;
 
-        public ForumController(DbContext c, IForumRepository repo)
+        public ForumController(IForumRepository repo)
         {
-            this.context = c;
             this.repo = repo;
         }
         public IActionResult Index()
@@ -31,13 +30,15 @@ namespace KatieSite.Controllers
         [HttpPost]
         public IActionResult Forum(ForumPost post)
         {
-            post.Date = DateTime.Now;
-
-            repo.SavePost(post);
-
-
-            return RedirectToAction("Index");
-
+            
+            if (repo.SavePost(post) > 0)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(); // TODO: Send an error message
+            }
         }
 
         public IActionResult Post(int postId)

@@ -1,5 +1,6 @@
 ﻿using KatieSite.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,10 +33,12 @@ namespace KatieSite.Data
             return post;
         }
 
-        public void SavePost(ForumPost post)
+        public int SavePost(ForumPost post)
         {
+            post.Date = DateTime.Now;
             context.ForumPosts.Add(post);
-            context.SaveChanges();
+            return context.SaveChanges();
+            // returns positive value if successful
         }
     }
 }

@@ -8,7 +8,7 @@ namespace KatieSite.Data
 
         public ForumPost GetPostById(int postId);
 
-        public void SavePost(ForumPost post);
+        public int SavePost(ForumPost post);
         public List<ForumPost> GetAllPosts();
     }
 }
