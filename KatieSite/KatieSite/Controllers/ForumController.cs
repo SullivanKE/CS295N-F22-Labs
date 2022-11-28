@@ -17,9 +17,27 @@ namespace KatieSite.Controllers
         {
             this.repo = repo;
         }
-        public IActionResult Index()
+        public IActionResult Index(string Head, DateTime Date)
         {
-            return View(repo.GetAllPosts());
+            List<ForumPost> posts = new List<ForumPost>();
+
+            // Searching for posts by head or date, otherwise return all
+            if (Head != null)
+                posts = (
+                    from p in repo.Posts
+                    where p.Head == Head
+                    select p
+                    ).ToList<ForumPost>();
+
+            else if (Date != DateTime.Parse("1/1/0001 12:00:00 AM"))
+                posts = (
+                    from p in repo.Posts
+                    where p.Date == Date
+                    select p
+                    ).ToList<ForumPost>();
+            else
+                posts = repo.GetAllPosts();
+            return View(posts);
         }
 
         public IActionResult Forum()

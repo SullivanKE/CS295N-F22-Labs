@@ -3,10 +3,35 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Forums</h1>
 
 
-@if (@Model[0] != null)
+<h1 class="display-4">Filter Forum Posts</h1>
+<div>
+    <form method="get" class="container">
+        <div class="row p-2">
+            <label for="Head" class="custom-control-label col-md-1">Search by Title</label>
+            <input name="Head" class="form-control col-md-6" />
+        </div>
+        <div class="row p-2">
+            <button type="submit" class="form-control btn btn-success col-2">Submit</button>
+        </div>
+    </form>
+
+    <form method="get" class="container">
+        <div class="row p-2">
+            <label for="Date" class="custom-control-label col-md-1">Search by Date</label>
+            <input name="Date" type="date" class="form-control col-md-6" />
+        </div>
+        <div class="row p-2">
+            <button type="submit" class="form-control btn btn-success col-2">Submit</button>
+            <a asp-action="Forum" class="btn btn-secondary col-3">Reset</a>
+        </div>
+    </form>
+</div>
+
+
+<h1 class="display-4">Forums</h1>
+@if (@Model.Count > 0)
 {
     <div class="container">
         <div class="col-md-3">
@@ -24,7 +49,7 @@
             URL: <a href="@Model[0].Rating.url">@Model[0].Rating.url</a><br />
         </div>
         <hr>
-        <div class="col-md-10" style="background-color:#dddddd;">
+        <div class="col-md-10 bg-light">
             <p class="m-3">
                 @Model[0].Body<br />
             </p>

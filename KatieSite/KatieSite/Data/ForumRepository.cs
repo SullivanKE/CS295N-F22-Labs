@@ -15,6 +15,14 @@ namespace KatieSite.Data
             this.context = context;
         }
 
+        public IQueryable<ForumPost> Posts 
+        {
+            get
+            {
+                return context.ForumPosts.Include(post=>post.Rating);
+            }
+        }
+
         public List<ForumPost> GetAllPosts()
         {
             List<ForumPost> posts = context.ForumPosts
