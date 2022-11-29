@@ -1,3 +1,4 @@
+using KatieSite.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,9 +28,10 @@ namespace KatieSite
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<DbContext>(
+            services.AddDbContext<Data.DbContext>(
                 options => options.UseSqlServer(Configuration["ConnectionStrings:SqlServerConnection"]));
 
+            services.AddTransient<IForumRepository, ForumRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

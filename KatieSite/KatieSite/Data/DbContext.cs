@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using KatieSite.Models;
 
-namespace KatieSite
+namespace KatieSite.Data
 {
     public class DbContext : Microsoft.EntityFrameworkCore.DbContext
     {
