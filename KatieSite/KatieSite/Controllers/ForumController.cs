@@ -10,17 +10,34 @@ namespace KatieSite.Controllers
     public class ForumController : Controller
     {
 
-        DbContext context;
+
         IForumRepository repo;
 
-        public ForumController(DbContext c, IForumRepository repo)
+        public ForumController(IForumRepository repo)
         {
-            this.context = c;
             this.repo = repo;
         }
-        public IActionResult Index()
+        public IActionResult Index(string Head, DateTime Date)
         {
-            return View(repo.GetAllPosts());
+            List<ForumPost> posts = new List<ForumPost>();
+
+            // Searching for posts by head or date, otherwise return all
+            if (Head != null)
+                posts = (
+                    from p in repo.Posts
+                    where p.Head == Head
+                    select p
+                    ).ToList<ForumPost>();
+
+            else if (Date != DateTime.Parse("1/1/0001 12:00:00 AM"))
+                posts = (
+                    from p in repo.Posts
+                    where p.Date == Date
+                    select p
+                    ).ToList<ForumPost>();
+            else
+                posts = repo.GetAllPosts();
+            return View(posts);
         }
 
         public IActionResult Forum()
@@ -31,13 +48,15 @@ namespace KatieSite.Controllers
         [HttpPost]
         public IActionResult Forum(ForumPost post)
         {
-            post.Date = DateTime.Now;
-
-            repo.SavePost(post);
-
-
-            return RedirectToAction("Index");
-
+            
+            if (repo.SavePost(post) > 0)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(); // TODO: Send an error message
+            }
         }
 
         public IActionResult Post(int postId)
