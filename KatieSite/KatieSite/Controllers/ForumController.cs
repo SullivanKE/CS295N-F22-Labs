@@ -32,7 +32,7 @@ namespace KatieSite.Controllers
             else if (Date != DateTime.Parse("1/1/0001 12:00:00 AM"))
                 posts = (
                     from p in repo.Posts
-                    where p.Date == Date
+                    where p.Date.Date == Date.Date
                     select p
                     ).ToList<ForumPost>();
             else
