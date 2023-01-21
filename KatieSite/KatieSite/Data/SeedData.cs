@@ -19,8 +19,8 @@ namespace KatieSite.Data
                     User = "Katie Sullivan",
                     Rating = new Rating
                     {
-                        rating = 5,
-                        url = "Youtube.com"
+                        PostRating = 5,
+                        Url = "Youtube.com"
                     },
                     Date = DateTime.Parse("1/1/2000")
                 };
@@ -34,8 +34,8 @@ namespace KatieSite.Data
                     User = "Grumpy pants",
                     Rating = new Rating
                     {
-                        rating = 1,
-                        url = "Bing.com"
+                        PostRating = 1,
+                        Url = "Bing.com"
                     },
                     Date = DateTime.Parse("2/2/2002")
                 };
@@ -48,8 +48,8 @@ namespace KatieSite.Data
                     User = "Throwaway225623",
                     Rating = new Rating
                     {
-                        rating = 3,
-                        url = "Reddit.com"
+                        PostRating = 3,
+                        Url = "Reddit.com"
                     },
                     Date = DateTime.Parse("11/23/2022")
                 };
