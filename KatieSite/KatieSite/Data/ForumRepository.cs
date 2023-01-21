@@ -8,9 +8,9 @@ namespace KatieSite.Data
 {
     public class ForumRepository : IForumRepository
     {
-        private DbContext context;
+        private RpgDbContext context;
 
-        public ForumRepository(DbContext context)
+        public ForumRepository(RpgDbContext context)
         {
             this.context = context;
         }

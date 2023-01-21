@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using DbContext = KatieSite.Data.DbContext;
+using RpgDbContext = KatieSite.Data.RpgDbContext;
 
 namespace KatieSite.Migrations
 {
-    [DbContext(typeof(DbContext))]
+    [DbContext(typeof(RpgDbContext))]
     [Migration("20221123175731_KatieSite")]
     partial class KatieSite
     {
