@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using KatieSite.Data;
-using DbContext = KatieSite.Data.DbContext;
+using RpgDbContext = KatieSite.Data.RpgDbContext;
 
 namespace KatieSite.Controllers
 {
@@ -22,9 +22,9 @@ namespace KatieSite.Controllers
             _logger = logger;
         }*/
 
-        DbContext context;
+        RpgDbContext context;
 
-        public HomeController(DbContext c)
+        public HomeController(RpgDbContext c)
         {
             this.context = c;
         }

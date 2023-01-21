@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using DbContext = KatieSite.Data.DbContext;
+using RpgDbContext = KatieSite.Data.RpgDbContext;
 
 namespace KatieSite.Migrations
 {
-    [DbContext(typeof(DbContext))]
+    [DbContext(typeof(RpgDbContext))]
     partial class DbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

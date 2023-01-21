@@ -7,7 +7,7 @@ namespace KatieSite.Data
 {
     public class SeedData
     {
-        public static void Seed(DbContext context)
+        public static void Seed(RpgDbContext context)
         {
             if (!context.ForumPosts.Any())
             {
