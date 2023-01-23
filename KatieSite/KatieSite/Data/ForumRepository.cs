@@ -19,7 +19,7 @@ namespace KatieSite.Data
         {
             get
             {
-                return context.ForumPosts.Include(post=>post.Rating);
+                return context.ForumPosts;
             }
         }
 

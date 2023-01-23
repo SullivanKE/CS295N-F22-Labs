@@ -8,6 +8,5 @@ namespace KatieSite.Data
         public RpgDbContext(
            DbContextOptions<RpgDbContext> options) : base(options) { }
         public DbSet<ForumPost> ForumPosts { get; set; }
-        public DbSet<Rating> Rating { get; set; }
     }
 }
