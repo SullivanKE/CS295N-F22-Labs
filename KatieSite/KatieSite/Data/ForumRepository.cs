@@ -26,7 +26,6 @@ namespace KatieSite.Data
         public List<ForumPost> GetAllPosts()
         {
             List<ForumPost> posts = context.ForumPosts
-                .Include(posts => posts.Rating)
                 .OrderByDescending(post => post.Date)
                 .ToList();
             return posts;
@@ -35,7 +34,6 @@ namespace KatieSite.Data
         public ForumPost GetPostById(int postId)
         {
             ForumPost post = context.ForumPosts
-                .Include(post => post.Rating)
                 .Where(post => post.PostId == postId)
                 .SingleOrDefault();
             return post;
