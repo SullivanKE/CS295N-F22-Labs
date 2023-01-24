@@ -72,6 +72,12 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<RpgDbContext>();
+    SeedData.Seed(context, scope.ServiceProvider);
+}
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
