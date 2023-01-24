@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using KatieSite.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace KatieSite.Data
 {
-    public class RpgDbContext : Microsoft.EntityFrameworkCore.DbContext
+    public class RpgDbContext : IdentityDbContext
     {
         public RpgDbContext(
            DbContextOptions<RpgDbContext> options) : base(options) { }

@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
+using System;
+using KatieSite.Models;
 
 /*var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +46,10 @@ builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("MySqlConnection");
 builder.Services.AddDbContext<KatieSite.Data.RpgDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores<RpgDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddTransient<IForumRepository, ForumRepository>();
 builder.Services.AddControllersWithViews();
