@@ -1,5 +1,6 @@
 ﻿using KatieSite.Data;
 using KatieSite.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,12 @@ namespace KatieSite.Controllers
 
 
         IForumRepository repo;
+        UserManager<AppUser> userManager;
 
-        public ForumController(IForumRepository repo)
+        public ForumController(IForumRepository repo, UserManager<AppUser> userMngr)
         {
             this.repo = repo;
+            this.userManager = userMngr;
         }
         public IActionResult Index(string Head, DateTime Date)
         {
@@ -48,8 +51,10 @@ namespace KatieSite.Controllers
         [HttpPost]
         public IActionResult Forum(ForumPost post)
         {
-            
-            if (repo.SavePost(post) > 0)
+            // Get the AppUser object for the current user
+			post.User = userManager.GetUserAsync(User).Result;
+
+			if (repo.SavePost(post) > 0)
             {
                 return RedirectToAction("Index");
             }
