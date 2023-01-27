@@ -19,13 +19,14 @@ namespace KatieSite.Data
         {
             get
             {
-                return context.ForumPosts;
+                return context.ForumPosts.Include(posts => posts.User);
             }
         }
 
         public List<ForumPost> GetAllPosts()
         {
             List<ForumPost> posts = context.ForumPosts
+                .Include(posts => posts.User)
                 .OrderByDescending(post => post.Date)
                 .ToList();
             return posts;
@@ -35,6 +36,7 @@ namespace KatieSite.Data
         {
             ForumPost post = context.ForumPosts
                 .Where(post => post.PostId == postId)
+                .Include(posts => posts.User)
                 .SingleOrDefault();
             return post;
         }

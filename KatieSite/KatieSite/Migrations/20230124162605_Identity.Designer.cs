@@ -3,6 +3,7 @@ using System;
 using KatieSite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KatieSite.Migrations
 {
     [DbContext(typeof(RpgDbContext))]
-    partial class RpgDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230124162605_Identity")]
+    partial class Identity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,12 +42,10 @@ namespace KatieSite.Migrations
                     b.Property<string>("Url")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
+                    b.Property<string>("User")
+                        .HasColumnType("longtext");
 
                     b.HasKey("PostId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("ForumPosts");
                 });
@@ -111,10 +111,6 @@ namespace KatieSite.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
@@ -165,8 +161,6 @@ namespace KatieSite.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -246,25 +240,6 @@ namespace KatieSite.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("KatieSite.Models.AppUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<DateTime>("SignUpDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasDiscriminator().HasValue("AppUser");
-                });
-
-            modelBuilder.Entity("KatieSite.Models.ForumPost", b =>
-                {
-                    b.HasOne("KatieSite.Models.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

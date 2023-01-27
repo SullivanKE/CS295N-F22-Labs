@@ -9,7 +9,7 @@ namespace KatieSite.Models
     {
         [Key]
         public int PostId { get; set; }
-        public string User { get; set; }
+        public AppUser User { get; set; }
         public DateTime Date { get; set; }
         public string Head { get; set; }
         public string Body { get; set; }
