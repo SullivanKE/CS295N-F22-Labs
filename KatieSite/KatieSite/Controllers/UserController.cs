@@ -8,14 +8,15 @@ using KatieSite.Models;
 
 namespace KatieSite.Controllers
 {
-    [Authorize(Role = "Admin")]
-    [Area("Admin")]
+    // [Authorize(Role = "Admin")]
+    // [Area("Admin")]
     public class UserController : Controller
     {
         private UserManager<AppUser> userManager; private RoleManager<IdentityRole> roleManager;
         public UserController(UserManager<AppUser> userMngr, RoleManager<IdentityRole> roleMngr)
         {
-            userManager = userMngr; roleManager = roleMngr;
+            userManager = userMngr; 
+            roleManager = roleMngr;
         }
 
         public async Task<IActionResult> Index()
@@ -27,7 +28,7 @@ namespace KatieSite.Controllers
                 user.RoleNames = await userManager.GetRolesAsync(user); 
                 users.Add(user);
             }
-            UserViewModel model = new UserViewModel
+            UserVM model = new UserVM
             {
                 Users = users,
                 Roles = roleManager.Roles
