@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KatieSite.Migrations
 {
     [DbContext(typeof(RpgDbContext))]
-    [Migration("20230131193115_userroles")]
-    partial class userroles
+    [Migration("20230201065955_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
