@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KatieSite.Controllers
 {
@@ -20,7 +21,7 @@ namespace KatieSite.Controllers
             this.repo = repo;
             this.userManager = userMngr;
         }
-        public IActionResult Index(string Head, DateTime Date)
+        public async Task<IActionResult> Index(string Head, DateTime Date)
         {
             List<ForumPost> posts = new List<ForumPost>();
 
@@ -30,7 +31,7 @@ namespace KatieSite.Controllers
                     from p in repo.Posts
                     where p.Head == Head
                     select p
-                    ).ToList<ForumPost>();
+                    ).ToList();
 
             else if (Date != DateTime.Parse("1/1/0001 12:00:00 AM"))
                 posts = (
@@ -39,7 +40,7 @@ namespace KatieSite.Controllers
                     select p
                     ).ToList<ForumPost>();
             else
-                posts = repo.GetAllPosts();
+                posts = await repo.GetAllPosts();
             return View(posts);
         }
 
@@ -49,12 +50,12 @@ namespace KatieSite.Controllers
         }
 
         [HttpPost]
-        public IActionResult Forum(ForumPost post)
+        public async Task<IActionResult> Forum(ForumPost post)
         {
             // Get the AppUser object for the current user
-			post.User = userManager.GetUserAsync(User).Result;
+            post.User = await userManager.GetUserAsync(User);
 
-			if (repo.SavePost(post) > 0)
+            if (await repo.SavePost(post) > 0)
             {
                 return RedirectToAction("Index");
             }
@@ -64,9 +65,9 @@ namespace KatieSite.Controllers
             }
         }
 
-        public IActionResult Post(int postId)
+        public async Task<IActionResult> Post(int postId)
         {
-            ForumPost post = repo.GetPostById(postId);
+            ForumPost post = await repo.GetPostById(postId);
 
             if (post != null)
                 return View(post);

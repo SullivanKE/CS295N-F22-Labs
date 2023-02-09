@@ -1,6 +1,7 @@
 ﻿using KatieSite.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KatieSite.Data
 {
@@ -8,9 +9,9 @@ namespace KatieSite.Data
     {
 
         public IQueryable<ForumPost> Posts { get; }
-        public ForumPost GetPostById(int postId);
+        public Task<ForumPost> GetPostById(int postId);
 
-        public int SavePost(ForumPost post);
-        public List<ForumPost> GetAllPosts();
+        public Task<int> SavePost(ForumPost post);
+        public Task<List<ForumPost>> GetAllPosts();
     }
 }
