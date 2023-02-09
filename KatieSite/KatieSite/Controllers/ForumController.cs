@@ -2,6 +2,7 @@
 using KatieSite.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,23 +25,26 @@ namespace KatieSite.Controllers
         public async Task<IActionResult> Index(string Head, DateTime Date)
         {
             List<ForumPost> posts = new List<ForumPost>();
+            Task<List<ForumPost>> postsTask;
 
             // Searching for posts by head or date, otherwise return all
             if (Head != null)
-                posts = (
-                    from p in repo.Posts
+                postsTask = (
+                    from p in repo.PostsAsync
                     where p.Head == Head
                     select p
-                    ).ToList();
+                    ).ToListAsync();
 
             else if (Date != DateTime.Parse("1/1/0001 12:00:00 AM"))
-                posts = (
-                    from p in repo.Posts
+                postsTask = (
+                    from p in repo.PostsAsync
                     where p.Date.Date == Date.Date
                     select p
-                    ).ToList<ForumPost>();
+                    ).ToListAsync<ForumPost>();
             else
-                posts = await repo.GetAllPosts();
+                postsTask = repo.GetAllPostsAsync();
+
+            posts = await postsTask;
             return View(posts);
         }
 
@@ -55,7 +59,7 @@ namespace KatieSite.Controllers
             // Get the AppUser object for the current user
             post.User = await userManager.GetUserAsync(User);
 
-            if (await repo.SavePost(post) > 0)
+            if (await repo.SavePostAsync(post) > 0)
             {
                 return RedirectToAction("Index");
             }
@@ -67,7 +71,7 @@ namespace KatieSite.Controllers
 
         public async Task<IActionResult> Post(int postId)
         {
-            ForumPost post = await repo.GetPostById(postId);
+            ForumPost post = await repo.GetPostByIdAsync(postId);
 
             if (post != null)
                 return View(post);

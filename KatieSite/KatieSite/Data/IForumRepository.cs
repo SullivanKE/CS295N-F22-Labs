@@ -8,10 +8,10 @@ namespace KatieSite.Data
     public interface IForumRepository
     {
 
-        public IQueryable<ForumPost> Posts { get; }
-        public Task<ForumPost> GetPostById(int postId);
+        public IQueryable<ForumPost> PostsAsync { get; }
+        public Task<ForumPost> GetPostByIdAsync(int postId);
 
-        public Task<int> SavePost(ForumPost post);
-        public Task<List<ForumPost>> GetAllPosts();
+        public Task<int> SavePostAsync(ForumPost post);
+        public Task<List<ForumPost>> GetAllPostsAsync();
     }
 }

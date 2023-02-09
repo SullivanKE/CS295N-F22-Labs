@@ -16,7 +16,7 @@ namespace KatieSite.Data
             this.context = context;
         }
 
-        public IQueryable<ForumPost> Posts 
+        public IQueryable<ForumPost> PostsAsync 
         {
             get
             {
@@ -24,7 +24,7 @@ namespace KatieSite.Data
             }
         }
 
-        public async Task<List<ForumPost>> GetAllPosts()
+        public async Task<List<ForumPost>> GetAllPostsAsync()
         {
             List<ForumPost> posts = await context.ForumPosts
                 .Include(posts => posts.User)
@@ -33,7 +33,7 @@ namespace KatieSite.Data
             return posts;
         }
 
-        public async Task<ForumPost> GetPostById(int postId)
+        public async Task<ForumPost> GetPostByIdAsync(int postId)
         {
             Task<ForumPost> postTask = context.ForumPosts
                 .Where(post => post.PostId == postId)
@@ -43,10 +43,10 @@ namespace KatieSite.Data
             return post;
         }
 
-        public async Task<int> SavePost(ForumPost post)
+        public async Task<int> SavePostAsync(ForumPost post)
         {
             post.Date = DateTime.Now;
-            await context.ForumPosts.AddAsync(post);
+            context.ForumPosts.Add(post);
             return await context.SaveChangesAsync();
             // returns positive value if successful
         }
