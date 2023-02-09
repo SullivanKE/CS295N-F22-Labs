@@ -1,5 +1,6 @@
 ﻿using KatieSite.Data;
 using KatieSite.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -48,11 +49,13 @@ namespace KatieSite.Controllers
             return View(posts);
         }
 
+        [Authorize]
         public IActionResult Forum()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Forum(ForumPost post)
         {
