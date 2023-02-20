@@ -51,7 +51,6 @@ namespace KatieSite.Controllers
 			return View(model);
 		}
 
-		[HttpPost]
 		public async Task<IActionResult> LogOut()
 		{
 			await signInManager.SignOutAsync();
@@ -83,7 +82,8 @@ namespace KatieSite.Controllers
 					}
 				}
 			}
-			ModelState.AddModelError("", "Invalid username/password."); return View(model);
+			ModelState.AddModelError("", "Invalid username/password."); 
+			return View(model);
 		}
 	}
 }
