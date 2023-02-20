@@ -1,10 +1,13 @@
 ﻿using KatieSite.Data;
 using KatieSite.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KatieSite.Controllers
 {
@@ -20,41 +23,46 @@ namespace KatieSite.Controllers
             this.repo = repo;
             this.userManager = userMngr;
         }
-        public IActionResult Index(string Head, DateTime Date)
+        public async Task<IActionResult> Index(string Head, DateTime Date)
         {
             List<ForumPost> posts = new List<ForumPost>();
+            Task<List<ForumPost>> postsTask;
 
             // Searching for posts by head or date, otherwise return all
             if (Head != null)
-                posts = (
-                    from p in repo.Posts
+                postsTask = (
+                    from p in repo.PostsAsync
                     where p.Head == Head
                     select p
-                    ).ToList<ForumPost>();
+                    ).ToListAsync();
 
             else if (Date != DateTime.Parse("1/1/0001 12:00:00 AM"))
-                posts = (
-                    from p in repo.Posts
+                postsTask = (
+                    from p in repo.PostsAsync
                     where p.Date.Date == Date.Date
                     select p
-                    ).ToList<ForumPost>();
+                    ).ToListAsync<ForumPost>();
             else
-                posts = repo.GetAllPosts();
+                postsTask = repo.GetAllPostsAsync();
+
+            posts = await postsTask;
             return View(posts);
         }
 
+        [Authorize]
         public IActionResult Forum()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
-        public IActionResult Forum(ForumPost post)
+        public async Task<IActionResult> Forum(ForumPost post)
         {
             // Get the AppUser object for the current user
-			post.User = userManager.GetUserAsync(User).Result;
+            post.User = await userManager.GetUserAsync(User);
 
-			if (repo.SavePost(post) > 0)
+            if (await repo.SavePostAsync(post) > 0)
             {
                 return RedirectToAction("Index");
             }
@@ -64,9 +72,9 @@ namespace KatieSite.Controllers
             }
         }
 
-        public IActionResult Post(int postId)
+        public async Task<IActionResult> Post(int postId)
         {
-            ForumPost post = repo.GetPostById(postId);
+            ForumPost post = await repo.GetPostByIdAsync(postId);
 
             if (post != null)
                 return View(post);

@@ -11,7 +11,7 @@ namespace KatieSite_Tests
     {
         private List<ForumPost> postList = new List<ForumPost>();
 
-        public IQueryable<ForumPost> Posts => throw new NotImplementedException(); // TODO: Fake Forum IQueryable
+        public IQueryable<ForumPost> PostsAsync => throw new NotImplementedException(); // TODO: Fake Forum IQueryable
 
         public List<ForumPost> GetAllPosts()
         {

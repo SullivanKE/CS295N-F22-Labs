@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KatieSite.Data
 {
@@ -15,7 +16,7 @@ namespace KatieSite.Data
             this.context = context;
         }
 
-        public IQueryable<ForumPost> Posts 
+        public IQueryable<ForumPost> PostsAsync 
         {
             get
             {
@@ -23,29 +24,30 @@ namespace KatieSite.Data
             }
         }
 
-        public List<ForumPost> GetAllPosts()
+        public async Task<List<ForumPost>> GetAllPostsAsync()
         {
-            List<ForumPost> posts = context.ForumPosts
+            List<ForumPost> posts = await context.ForumPosts
                 .Include(posts => posts.User)
                 .OrderByDescending(post => post.Date)
-                .ToList();
+                .ToListAsync();
             return posts;
         }
 
-        public ForumPost GetPostById(int postId)
+        public async Task<ForumPost> GetPostByIdAsync(int postId)
         {
-            ForumPost post = context.ForumPosts
+            Task<ForumPost> postTask = context.ForumPosts
                 .Where(post => post.PostId == postId)
                 .Include(posts => posts.User)
-                .SingleOrDefault();
+                .SingleOrDefaultAsync();
+            ForumPost post = await postTask;
             return post;
         }
 
-        public int SavePost(ForumPost post)
+        public async Task<int> SavePostAsync(ForumPost post)
         {
             post.Date = DateTime.Now;
             context.ForumPosts.Add(post);
-            return context.SaveChanges();
+            return await context.SaveChangesAsync();
             // returns positive value if successful
         }
     }

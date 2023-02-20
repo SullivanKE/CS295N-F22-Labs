@@ -1,16 +1,17 @@
 ﻿using KatieSite.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KatieSite.Data
 {
     public interface IForumRepository
     {
 
-        public IQueryable<ForumPost> Posts { get; }
-        public ForumPost GetPostById(int postId);
+        public IQueryable<ForumPost> PostsAsync { get; }
+        public Task<ForumPost> GetPostByIdAsync(int postId);
 
-        public int SavePost(ForumPost post);
-        public List<ForumPost> GetAllPosts();
+        public Task<int> SavePostAsync(ForumPost post);
+        public Task<List<ForumPost>> GetAllPostsAsync();
     }
 }
