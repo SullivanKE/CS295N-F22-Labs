@@ -5,7 +5,9 @@ VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KatieSite", "KatieSite\KatieSite.csproj", "{24F1CB1A-DE41-4675-B415-931A4066AAAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KatieSite Tests", "KatieSite Tests\KatieSite Tests.csproj", "{7EF40866-9190-4C7B-A4A6-5708D82A249B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KatieSite Tests", "KatieSite Tests\KatieSite Tests.csproj", "{7EF40866-9190-4C7B-A4A6-5708D82A249B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lab 6", "Lab 6", "{93ED6906-0C32-4BCA-B80B-55B13CCB061A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
