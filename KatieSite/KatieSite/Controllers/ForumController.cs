@@ -82,5 +82,17 @@ namespace KatieSite.Controllers
             return View();
 
         }
+
+        public async Task<IActionResult> Reply(int postId, ForumPost reply)
+        {
+            ForumPost lastPost = await repo.GetPostByIdAsync(postId);
+            List<ForumPost> replies = lastPost.Reply.ToList();
+            replies.Add(reply);
+            lastPost.Reply = replies;
+            lastPost.Reply.ToList().Add(reply);
+            await repo.SaveReplyAsync(lastPost);
+
+			return RedirectToAction("Index");
+        }
     }
 }

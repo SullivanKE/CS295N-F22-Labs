@@ -3,6 +3,7 @@ using System;
 using KatieSite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KatieSite.Migrations
 {
     [DbContext(typeof(RpgDbContext))]
-    partial class RpgDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230317213058_reply3")]
+    partial class reply3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,8 +36,9 @@ namespace KatieSite.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("ForumPostPostId")
-                        .HasColumnType("int");
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Head")
                         .HasColumnType("longtext");
@@ -50,11 +53,11 @@ namespace KatieSite.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.HasIndex("ForumPostPostId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("ForumPosts");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("ForumPost");
                 });
 
             modelBuilder.Entity("KatieSite.Models.Publisher", b =>
@@ -304,15 +307,23 @@ namespace KatieSite.Migrations
                     b.HasDiscriminator().HasValue("AppUser");
                 });
 
+            modelBuilder.Entity("KatieSite.Models.Reply", b =>
+                {
+                    b.HasBaseType("KatieSite.Models.ForumPost");
+
+                    b.Property<int?>("ForumPostPostId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("ForumPostPostId");
+
+                    b.HasDiscriminator().HasValue("Reply");
+                });
+
             modelBuilder.Entity("KatieSite.Models.ForumPost", b =>
                 {
                     b.HasOne("KatieSite.Models.RpgBook", "Book")
                         .WithMany()
                         .HasForeignKey("BookId");
-
-                    b.HasOne("KatieSite.Models.ForumPost", null)
-                        .WithMany("Reply")
-                        .HasForeignKey("ForumPostPostId");
 
                     b.HasOne("KatieSite.Models.AppUser", "User")
                         .WithMany()
@@ -381,6 +392,13 @@ namespace KatieSite.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("KatieSite.Models.Reply", b =>
+                {
+                    b.HasOne("KatieSite.Models.ForumPost", null)
+                        .WithMany("Reply")
+                        .HasForeignKey("ForumPostPostId");
                 });
 
             modelBuilder.Entity("KatieSite.Models.ForumPost", b =>

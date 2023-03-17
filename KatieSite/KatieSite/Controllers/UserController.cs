@@ -25,8 +25,8 @@ namespace KatieSite.Controllers
         {
             List<AppUser> users = new List<AppUser>();
 
-            AppUser user = userManager.FindByNameAsync("admin").Result;
-            //foreach (AppUser user in userManager.Users)
+            //AppUser user = userManager.FindByNameAsync("admin").Result;
+            foreach (AppUser user in userManager.Users.ToList())
             {
                 user.RoleNames = userManager.GetRolesAsync(user).Result;
 

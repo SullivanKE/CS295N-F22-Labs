@@ -9,5 +9,7 @@ namespace KatieSite.Data
         public RpgDbContext(
            DbContextOptions<RpgDbContext> options) : base(options) { }
         public DbSet<ForumPost> ForumPosts { get; set; }
+        public DbSet<RpgBook> RpgBooks { get; set; }
+        public DbSet<Publisher> Publishers { get; set; }
     }
 }

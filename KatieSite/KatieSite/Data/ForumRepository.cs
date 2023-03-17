@@ -20,25 +20,32 @@ namespace KatieSite.Data
         {
             get
             {
-                return context.ForumPosts.Include(posts => posts.User);
+                return context.ForumPosts
+				    .Include(posts => posts.Book)
+				    .Include(posts => posts.User)
+                    .Include(posts => posts.Reply);
             }
         }
 
-        public async Task<List<ForumPost>> GetAllPostsAsync()
-        {
-            List<ForumPost> posts = await context.ForumPosts
-                .Include(posts => posts.User)
-                .OrderByDescending(post => post.Date)
-                .ToListAsync();
-            return posts;
-        }
+		public async Task<List<ForumPost>> GetAllPostsAsync()
+		{
+			List<ForumPost> posts = await context.ForumPosts
+				.Include(posts => posts.User)
+				.Include(posts => posts.Book)
+				.Include(posts => posts.Reply)
+				.OrderByDescending(post => post.Date)
+				.ToListAsync();
+			return posts;
+		}
 
-        public async Task<ForumPost> GetPostByIdAsync(int postId)
+		public async Task<ForumPost> GetPostByIdAsync(int postId)
         {
             Task<ForumPost> postTask = context.ForumPosts
                 .Where(post => post.PostId == postId)
                 .Include(posts => posts.User)
-                .SingleOrDefaultAsync();
+				.Include(posts => posts.Book)
+				.Include(posts => posts.Reply)
+				.SingleOrDefaultAsync();
             ForumPost post = await postTask;
             return post;
         }
@@ -50,5 +57,12 @@ namespace KatieSite.Data
             return await context.SaveChangesAsync();
             // returns positive value if successful
         }
-    }
+
+		public async Task<int> SaveReplyAsync(ForumPost post)
+		{
+			context.ForumPosts.Update(post);
+			return await context.SaveChangesAsync();
+			// returns positive value if successful
+		}
+	}
 }

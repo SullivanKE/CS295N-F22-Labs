@@ -45,7 +45,7 @@ namespace KatieSite.Data
                     Body = "Youtube isn't a website yet, and it won't be for a few years, but I think it's going to change things.",
                     User = user1,
                     Rating = 5,
-                    Url = "Youtube.com",
+                    //Url = "Youtube.com",
                     Date = DateTime.Parse("1/1/2000")
                 };
                 context.ForumPosts.Add(post);
@@ -57,7 +57,7 @@ namespace KatieSite.Data
                     Body = "This is some sample text about why I don't like bing.",
                     User = user2,
                     Rating = 1,
-                    Url = "Bing.com",
+                    //Url = "Bing.com",
                     Date = DateTime.Parse("2/2/2002")
                 };
                 context.ForumPosts.Add(post);
@@ -68,7 +68,7 @@ namespace KatieSite.Data
                     Body = "It's kind of a bad website because of the people using it, but like, it's okay sometimes?",
                     User = user3,
                     Rating = 3,
-                    Url = "Reddit.com",
+                    //Url = "Reddit.com",
                     Date = DateTime.Parse("11/23/2022")
                 };
                 context.ForumPosts.Add(post);

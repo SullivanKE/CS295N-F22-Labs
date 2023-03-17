@@ -3,6 +3,7 @@ using System;
 using KatieSite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KatieSite.Migrations
 {
     [DbContext(typeof(RpgDbContext))]
-    partial class RpgDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230317165935_replies")]
+    partial class replies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,13 +36,13 @@ namespace KatieSite.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("ForumPostPostId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Head")
                         .HasColumnType("longtext");
 
                     b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ReplyPostId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -50,7 +52,7 @@ namespace KatieSite.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.HasIndex("ForumPostPostId");
+                    b.HasIndex("ReplyPostId");
 
                     b.HasIndex("UserId");
 
@@ -310,15 +312,17 @@ namespace KatieSite.Migrations
                         .WithMany()
                         .HasForeignKey("BookId");
 
-                    b.HasOne("KatieSite.Models.ForumPost", null)
-                        .WithMany("Reply")
-                        .HasForeignKey("ForumPostPostId");
+                    b.HasOne("KatieSite.Models.ForumPost", "Reply")
+                        .WithMany()
+                        .HasForeignKey("ReplyPostId");
 
                     b.HasOne("KatieSite.Models.AppUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
                     b.Navigation("Book");
+
+                    b.Navigation("Reply");
 
                     b.Navigation("User");
                 });
@@ -381,11 +385,6 @@ namespace KatieSite.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("KatieSite.Models.ForumPost", b =>
-                {
-                    b.Navigation("Reply");
                 });
 #pragma warning restore 612, 618
         }

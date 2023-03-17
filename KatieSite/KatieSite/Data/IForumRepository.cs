@@ -12,6 +12,7 @@ namespace KatieSite.Data
         public Task<ForumPost> GetPostByIdAsync(int postId);
 
         public Task<int> SavePostAsync(ForumPost post);
-        public Task<List<ForumPost>> GetAllPostsAsync();
+		public Task<int> SaveReplyAsync(ForumPost post);
+		public Task<List<ForumPost>> GetAllPostsAsync();
     }
 }

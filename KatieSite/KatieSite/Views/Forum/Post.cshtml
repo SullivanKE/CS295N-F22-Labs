@@ -1,39 +1,122 @@
 ﻿@model ForumPost;
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> signInManager
 
 <h1>Forums</h1>
 
 
 @if (@Model != null)
 {
-    <div class="container">
-        <div class="col-md-3">
-                <p class="h2">
-                    @Model.Head<br />
-                </p>
-                <p class="h5">
-                by @Model.User.UserName<br />
-                </p>
-                @Model.Date.ToShortDateString()<br />
-        </div>
-        <hr>
-        <div class="col-md-3">
-                Rating: @Model.Rating<br />
-                URL: <a href="@Model.Url">@Model.Url</a><br />
-        </div>
-        <hr>
-        <div class="col-md-10" style="background-color:#dddddd;">
-            <p class="m-3">
-                @Model.Body<br />
-            </p>
-        </div>
-    </div>
+	<div class="container">
+		<div class="col-md-3">
+			<p class="h2">
+				@Model.Head<br />
+			</p>
+			<p class="h5">
+				by @Model.User.UserName<br />
+			</p>
+			@Model.Date.ToShortDateString()<br />
+		</div>
+		<hr>
+		<div class="col-md-3">
+			Rating: @Model.Rating<br />
+			@*URL: <a href="@Model.Url">@Model.Url</a><br />*@
+		</div>
+		<hr>
+		<div class="col-md-10" style="background-color:#dddddd;">
+			<p class="m-3">
+				@Model.Body<br />
+			</p>
+		</div>
+	</div>
+	<div id="reply" class="row">
+		<div class="col-1">
+		</div>
+		<div class="col-10">
+
+			@foreach (ForumPost r in Model.Reply)
+			{
+				<div class="col-md-3">
+					<p class="h2">
+						@r.Head<br />
+					</p>
+					<p class="h5">
+						by @r.User.UserName<br />
+					</p>
+					@r.Date.ToShortDateString()<br />
+				</div>
+				<hr>
+				<div class="col-md-3">
+					Rating: @r.Rating<br />
+					@*URL: <a href="@Model.Url">@Model.Url</a><br />*@
+				</div>
+				<hr>
+				<div class="col-md-10" style="background-color:#dddddd;">
+					<p class="m-3">
+						@r.Body<br />
+					</p>
+				</div>
+			}
+
+			@if (signInManager.IsSignedIn(User))
+			{
+				<div class="jumbotron">
+					<h2 class="display-3">Leave a reply!</h2>
+				</div>
+
+				<form method="post" asp-action="Reply">
+					<input for="postId" name="postId" value="@Model.PostId" hidden readonly>
+					<span class="m-1">
+						<div class="row">
+							<label asp-for="Rating" class="col-sm-2">Rating</label>
+							<input asp-for="Rating" class="col-sm-4" value="" /><br />
+						</div>
+
+						@*<div class="row">
+				<label asp-for = "Url" class="col-sm-2">URL</label>
+				<input asp-for = "Url" class="col-sm-4" /><br />
+				</div>*@
+					</span>
+
+					<span class="m-1">
+						<div class="row">
+							<label asp-for="Head" class="col-sm-2">Head</label>
+							<input asp-for="Head" class="col-sm-4" value="" /><br />
+						</div>
+					</span>
+
+					<span class="m-1">
+						<div class="row">
+							<label asp-for="Body" class="col-sm-2">Body</label>
+							<textarea asp-for="Body" class="col-sm-4" value=" "></textarea><br />
+						</div>
+					</span>
+
+					<span class="p-1">
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</span>
+
+				</form>
+			}
+			else
+			{
+
+				<a asp-action="Login" asp-controller="Account" class="btn btn-outline-dark">Log in to reply!</a>
+
+			}
+
+
+
+		</div>
+
+	</div>
 }
 else
 {
-    <p class="h1">
-        No post found!
-    </p>
+	<p class="h1">
+		No post found!
+	</p>
 }
